@@ -1,15 +1,11 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
-##############################################
-# Copyright (C) 2014 by codeskyblue
-#=============================================
+# Copyright (C) 2021 by LuneZ99
 
-'''
+"""
 Some snippets of opencv2
 
 ## Resize image
-ref: <http://docs.opencv.org/modules/imgproc/doc/geometric_transformations.html#void resize(InputArray src, OutputArray dst, Size dsize, double fx, double fy, int interpolation)>
+ref: <https://docs.opencv.org/modules/imgproc/doc/geometric_transformations.html#void resize(InputArray src, OutputArray dst, Size dsize, double fx, double fy, int interpolation)>
 
     # half width and height
     small = cv2.resize(image, (0, 0), fx=0.5, fy=0.5)
@@ -39,7 +35,7 @@ ref: <http://docs.opencv.org/modules/imgproc/doc/geometric_transformations.html#
 ## Crop image
     croped = img[y0:y1, x0:x1]
 
-'''
+"""
 
 import cv2
 import numpy as np
@@ -72,31 +68,31 @@ DEBUG = False
 #    return img
 
 def show(img):
-    ''' 显示一个图片 '''
+    """ 显示一个图片 """
     cv2.imshow('image', img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 def imread(filename):
-    ''' 
+    """
     Like cv2.imread
-    This function will make sure filename exists 
-    '''
+    This function will make sure filename exists
+    """
     im = cv2.imread(filename)
     if im is None:
         raise RuntimeError("file: '%s' not exists" % filename)
     return im
 
 def find_template(im_source, im_search, threshold=0.5, rgb=False, bgremove=False):
-    '''
+    """
     @return find location
     if not found; return None
-    '''
+    """
     result = find_all_template(im_source, im_search, threshold, 1, rgb, bgremove)
     return result[0] if result else None
 
 def find_all_template(im_source, im_search, threshold=0.5, maxcnt=0, rgb=False, bgremove=False):
-    '''
+    """
     Locate image position with cv2.templateFind
 
     Use pixel match to find pictures.
@@ -111,7 +107,7 @@ def find_all_template(im_source, im_search, threshold=0.5, maxcnt=0, rgb=False, 
 
     Raises:
         IOError: when file read error
-    '''
+    """
     # method = cv2.TM_CCORR_NORMED
     # method = cv2.TM_SQDIFF_NORMED
     method = cv2.TM_CCOEFF_NORMED
@@ -163,11 +159,12 @@ def find_all_template(im_source, im_search, threshold=0.5, maxcnt=0, rgb=False, 
 def _sift_instance(edge_threshold=100):
     if hasattr(cv2, 'SIFT'):
         return cv2.SIFT(edgeThreshold=edge_threshold)
-    return cv2.xfeatures2d.SIFT_create(edgeThreshold=edge_threshold)
+    return cv2.SIFT_create(edgeThreshold=edge_threshold)
 
 
 def sift_count(img):
     sift = _sift_instance()
+    # print(sift)
     kp, des = sift.detectAndCompute(img, None)
     return len(kp)
 

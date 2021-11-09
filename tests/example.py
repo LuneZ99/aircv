@@ -31,6 +31,7 @@ def tmpl_test():
 
 if __name__ == '__main__':
     sift_test()
+    print(0)
     tmpl_test()
 
     # import cv2

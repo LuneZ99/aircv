@@ -159,7 +159,7 @@ def find_all_template(im_source, im_search, threshold=0.5, maxcnt=0, rgb=False, 
 def _sift_instance(edge_threshold=100):
     if hasattr(cv2, 'SIFT'):
         return cv2.SIFT(edgeThreshold=edge_threshold)
-    return cv2.SIFT_create(edgeThreshold=edge_threshold)
+    return cv2.xfeatures2d.SIFT_create(edgeThreshold=edge_threshold)
 
 
 def sift_count(img):

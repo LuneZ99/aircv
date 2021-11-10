@@ -224,6 +224,7 @@ def find_all_sift(im_source, im_search, min_match_count=4, maxcnt=0):
         img_pts = np.float32([kp_src[m.trainIdx].pt for m in good]).reshape(-1, 1, 2) 
 
         # M是转化矩阵
+        # fixme M 可能为 None
         M, mask = cv2.findHomography(sch_pts, img_pts, cv2.RANSAC, 5.0)
         matches_mask = mask.ravel().tolist()
 
